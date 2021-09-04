@@ -8,8 +8,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'test-list-board';
 
-  a = 'çaex';
-
   lists = [
     {
       id: 1,
@@ -26,12 +24,16 @@ export class AppComponent {
   ];
 
   addList() {
-    this.lists.push({
-      id: (Math.random() * 100) | 0,
-      title: 'List',
-      newItem: '',
-      items: [],
-    });
+    const listName = prompt('List name', '');
+
+    if (listName) {
+      this.lists.push({
+        id: (Math.random() * 100) | 0,
+        title: listName,
+        newItem: '',
+        items: [],
+      });
+    }
   }
 
   addItemToList(item: any) {
