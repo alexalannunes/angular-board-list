@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+}
+
+.border {
+  border: var(--border);
+}
+
+.board {
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.list {
+  border: var(--border);
+  padding: 10px;
+  max-width: 240px;
+  min-width: 240px;
+  border-radius: 10px;
+}
+
+.zoomIn {
+  animation: zoomIn 0.3s ease-in forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
