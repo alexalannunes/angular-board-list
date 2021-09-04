@@ -7,7 +7,6 @@
 }
 
 .board {
-  padding: 10px;
   width: 100%;
   border-radius: 10px;
   display: flex;
@@ -23,8 +22,16 @@
   border-radius: 10px;
 }
 
+.content {
+  margin: 20px;
+}
+
 .zoomIn {
   animation: zoomIn 0.3s ease-in forwards;
+}
+
+.checked {
+  text-decoration: line-through;
 }
 
 @keyframes zoomIn {

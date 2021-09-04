@@ -1,36 +1,41 @@
-<h1>{{ title }}</h1>
-<div class="board border">
-  <div class="list border" *ngFor="let i of lists; let x = index">
-    <h3>{{ i.title }} {{ x }}</h3>
-    <hr />
-    <div>
-      <form>
-        <input
-          [(ngModel)]="i.newItem"
-          [ngModelOptions]="{ standalone: true }"
-          type="text"
-        />
-        <button
-          type="submit"
-          (click)="addItemToList(i)"
-          [disabled]="!i.newItem"
-          name="input_list_{{ x }}"
-        >
-          +
-        </button>
-      </form>
-    </div>
-
-    <div>
-      <div *ngFor="let a of i.items" class="zoomIn">{{ a.title }}</div>
-    </div>
-    <div>
+<app-top-bar></app-top-bar>
+<div class="content">
+  <div class="board">
+    <div class="list border" *ngFor="let i of lists; let x = index">
+      <h3>{{ i.title }} {{ x }}</h3>
       <hr />
-      {{ i.items.length }} items
-    </div>
-  </div>
+      <div>
+        <form (ngSubmit)="addItemToList(i)">
+          <input
+            [(ngModel)]="i.newItem"
+            [ngModelOptions]="{ standalone: true }"
+            type="text"
+            class="input"
+            placeholder="What needs to be done?"
+          />
+        </form>
+      </div>
 
-  <div class="list border">
-    <button (click)="addList()">+ adicionar</button>
+      <div class="list-container" role="menu">
+        <div *ngFor="let a of i.items" class="zoomIn list-item" role="listitem">
+          <span [ngClass]="{ checked: a.completed }" (click)="toggleItem(a)">
+            {{ a.title }}
+            <span *ngIf="a.editable">can.edit</span>
+          </span>
+          <span (click)="toogleEdit(a)">
+            <i class="list-item-icon material-icons">edit</i>
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <hr />
+        {{ i.items.length }} items
+      </div>
+    </div>
+
+    <div class="list border">
+      <button (click)="addList()">+ adicionar</button>
+    </div>
   </div>
 </div>

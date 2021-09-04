@@ -1,13 +1,26 @@
 import { Component } from '@angular/core';
 
+interface ListItem {
+  id: number;
+  title: string;
+  completed: boolean;
+  listId: number;
+  editable: boolean;
+}
+
+interface List {
+  id: number;
+  title: string;
+  newItem: string;
+  items: ListItem[];
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'test-list-board';
-
   lists = [
     {
       id: 1,
@@ -15,9 +28,11 @@ export class AppComponent {
       newItem: '',
       items: [
         {
+          id: 13,
           title: 'Lotem',
           completed: false,
           listId: 1,
+          editable: false,
         },
       ],
     },
@@ -44,5 +59,13 @@ export class AppComponent {
     });
 
     item.newItem = '';
+  }
+
+  toggleItem(item: ListItem) {
+    item.completed = !item.completed;
+  }
+
+  toogleEdit(item: ListItem) {
+    item.editable = !item.editable;
   }
 }
