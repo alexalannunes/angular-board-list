@@ -71,9 +71,20 @@ export class AppComponent {
 
   toggleItem(item: ListItem) {
     item.completed = !item.completed;
+    item.editable = false;
   }
 
   toogleEdit(item: ListItem) {
-    item.editable = !item.editable;
+    if (!item.editable && !item.completed) {
+      const input: HTMLInputElement | null = document.querySelector(
+        `#list_item__${item.listId}__${item.id}`
+      );
+      input && input.focus();
+      item.editable = !item.editable;
+    }
+  }
+
+  blurEditableItem(item: ListItem) {
+    this.toogleEdit(item);
   }
 }
