@@ -3,7 +3,6 @@
   <div class="board">
     <div class="list border" *ngFor="let i of lists; let x = index">
       <h3>{{ i.title }} {{ x }}</h3>
-      <hr />
       <div>
         <form (ngSubmit)="addItemToList(i)">
           <input
@@ -18,19 +17,29 @@
 
       <div class="list-container" role="menu">
         <div *ngFor="let a of i.items" class="zoomIn list-item" role="listitem">
-          <span [ngClass]="{ checked: a.completed }" (click)="toggleItem(a)">
+          <span
+            [ngClass]="{ checked: a.completed }"
+            class="flex ai-center flex-1"
+            (click)="toggleItem(a)"
+          >
+            <div
+              [ngClass]="{ checked: a.completed }"
+              class="fake-radio border m-r-10"
+            ></div>
             {{ a.title }}
             <span *ngIf="a.editable">can.edit</span>
           </span>
-          <span (click)="toogleEdit(a)">
+          <span (click)="toogleEdit(a)" style="width: 20px">
             <i class="list-item-icon material-icons">edit</i>
           </span>
         </div>
       </div>
 
       <div>
-        <hr />
-        {{ i.items.length }} items
+        <small class="text-gray">
+          <span *ngIf="totalListChecked(i)">{{ totalListChecked(i) }} /</span>
+          {{ i.items.length }} items
+        </small>
       </div>
     </div>
 

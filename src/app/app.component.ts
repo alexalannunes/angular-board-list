@@ -51,14 +51,22 @@ export class AppComponent {
     }
   }
 
-  addItemToList(item: any) {
-    item.items.push({
-      title: item.newItem,
-      completed: false,
-      listId: item.listId,
-    });
+  addItemToList(item: List) {
+    if (item.newItem) {
+      item.items.push({
+        id: (Math.random() * 1000) | 0,
+        title: item.newItem,
+        completed: false,
+        listId: item.id,
+        editable: false,
+      });
 
-    item.newItem = '';
+      item.newItem = '';
+    }
+  }
+
+  totalListChecked(list: List) {
+    return list.items.filter((l: ListItem) => l.completed).length;
   }
 
   toggleItem(item: ListItem) {
