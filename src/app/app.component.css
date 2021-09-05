@@ -1,7 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
 .border {
   border: var(--border);
 }
@@ -23,7 +19,7 @@
 }
 
 .content {
-  margin: 20px;
+  margin: 20px 100px;
 }
 
 .zoomIn {
@@ -32,6 +28,35 @@
 
 .checked {
   text-decoration: line-through;
+}
+
+.fake-radio {
+  height: 16px;
+  width: 16px;
+  border-radius: 100px;
+  transition: all 0.3s ease-in;
+  cursor: pointer;
+}
+
+.fake-radio.checked {
+  background: var(--primary);
+  border-color: var(--primary);
+
+  animation: increase 0.8s ease-in forwards;
+}
+
+@keyframes increase {
+  0% {
+    box-shadow: 0 0 0 0 var(--primary);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
 }
 
 @keyframes zoomIn {
