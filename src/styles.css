@@ -18,7 +18,14 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
+.input-text {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: inherit;
+  color: inherit;
+  width: 100%;
+}
 .input {
   height: 32px;
   border: 1px solid #ccc;
