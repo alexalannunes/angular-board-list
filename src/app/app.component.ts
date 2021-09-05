@@ -85,6 +85,6 @@ export class AppComponent {
   }
 
   blurEditableItem(item: ListItem) {
-    this.toogleEdit(item);
+    item.editable = !item.editable;
   }
 }
