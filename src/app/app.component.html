@@ -17,21 +17,35 @@
 
       <div class="list-container" role="menu">
         <div *ngFor="let a of i.items" class="zoomIn list-item" role="listitem">
-          <span
-            [ngClass]="{ checked: a.completed }"
-            class="flex ai-center flex-1"
-            (click)="toggleItem(a)"
-          >
+          <div class="flex ai-center flex-1">
             <div
-              [ngClass]="{ checked: a.completed }"
-              class="fake-radio border m-r-10"
-            ></div>
-            {{ a.title }}
-            <span *ngIf="a.editable">can.edit</span>
-          </span>
-          <span (click)="toogleEdit(a)" style="width: 20px">
-            <i class="list-item-icon material-icons">edit</i>
-          </span>
+              (click)="toggleItem(a)"
+              class="icons-toggle-item--action m-r-10"
+            >
+              <span class="material-icons icon--checked" *ngIf="a.completed">
+                check
+              </span>
+              <span class="action--icons" *ngIf="!a.completed">
+                <span class="material-icons icon--checked">check</span>
+                <span class="material-icons icon--pending">
+                  radio_button_unchecked
+                </span>
+              </span>
+            </div>
+            <input
+              type="text"
+              [readonly]="!a.editable"
+              [ngClass]="{
+                checked: a.completed,
+                'input-text': !a.editable,
+                input: a.editable
+              }"
+              [value]="a.title"
+              (blur)="blurEditableItem(a)"
+              id="list_item__{{ i.id }}__{{ a.id }}"
+              (click)="toogleEdit(a)"
+            />
+          </div>
         </div>
       </div>
 
