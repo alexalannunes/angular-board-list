@@ -1,4 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
 
 :root {
   --primary: #3498db;
@@ -9,6 +11,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  color: #444;
 }
 
 body {
@@ -39,9 +42,38 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  will-change: background;
+  transition: background 0.2s ease-in;
+  border-radius: 8px;
+  padding: 0 5px;
+}
+
+.list-item:hover {
+  background: #f1f1f1;
 }
 
 .list-item-icon {
   font-size: 16px;
   cursor: pointer;
+}
+
+.text-gray {
+  color: #888;
+}
+
+.flex {
+  display: flex;
+}
+.ai-center {
+  align-items: center;
+}
+.jc-between {
+  justify-content: space-between;
+}
+
+.m-r-10 {
+  margin-right: 10px;
+}
+.flex-1 {
+  flex: 1;
 }
