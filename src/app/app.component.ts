@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 interface ListItem {
   id: number;
@@ -21,6 +21,11 @@ interface List {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  @ViewChild('inputAddNewList')
+  inputAddNewList: any;
+
+  newListName: string = '';
+
   lists = [
     {
       id: 1,
@@ -38,17 +43,26 @@ export class AppComponent {
     },
   ];
 
-  addList() {
-    const listName = prompt('List name', '');
+  modalAddListVisible = false;
 
-    if (listName) {
-      this.lists.push({
-        id: (Math.random() * 100) | 0,
-        title: listName,
-        newItem: '',
-        items: [],
-      });
-    }
+  openModalAddNewList() {
+    this.modalAddListVisible = true;
+    setTimeout(() => {
+      console.log(this);
+      this.inputAddNewList.nativeElement.focus();
+    }, 100);
+  }
+
+  addNewList() {
+    this.lists.push({
+      id: (Math.random() * 100) | 0,
+      title: this.newListName,
+      newItem: '',
+      items: [],
+    });
+
+    this.modalAddListVisible = false;
+    this.newListName = '';
   }
 
   addItemToList(item: List) {

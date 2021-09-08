@@ -58,7 +58,7 @@
     </div>
 
     <div class="list border">
-      <button (click)="addList()">+ adicionar</button>
+      <button (click)="openModalAddNewList()">+ adicionar</button>
     </div>
   </div>
 </div>
@@ -82,6 +82,15 @@
     bottom: 0;
     z-index: 9;
     background: transparent;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-in-out;
+    transform: translateY(-30px);
+  }
+  .modal.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
   }
   .modal-dialog {
     width: 500px;
@@ -113,19 +122,38 @@
   }
 </style>
 
-<div class="modal">
+<div class="modal-backdrop" *ngIf="modalAddListVisible"></div>
+<div class="modal" [ngClass]="{ open: modalAddListVisible }">
   <div class="modal-dialog">
     <div class="modal-header">
       <h4 class="m-0" style="font-weight: 500">Add new list</h4>
-      <span class="modal-close material-icons">close</span>
+      <span
+        class="modal-close material-icons"
+        (click)="modalAddListVisible = false"
+        >close</span
+      >
     </div>
     <div class="modal-body">
-      <input type="text" class="input" placeholder="List name" />
+      <input
+        type="text"
+        class="input"
+        #inputAddNewList
+        placeholder="List name"
+        [(ngModel)]="newListName"
+      />
     </div>
+
     <div class="modal-footer flex ai-center jc-end">
-      <button class="btn btn-light">Cancel</button>
-      <button class="btn btn-success">Confirm</button>
+      <button class="btn btn-light" (click)="modalAddListVisible = false">
+        Cancel
+      </button>
+      <button
+        class="btn btn-success"
+        [disabled]="!newListName"
+        (click)="addNewList()"
+      >
+        Confirm
+      </button>
     </div>
   </div>
 </div>
-<div class="modal-backdrop"></div>

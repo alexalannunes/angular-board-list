@@ -116,6 +116,11 @@ body {
   color: #fff;
 }
 
+.btn-success[disabled] {
+  opacity: 0.6;
+  cursor: default;
+}
+
 .m-0 {
   margin: 0;
 }
