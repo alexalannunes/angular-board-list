@@ -5,6 +5,11 @@
 :root {
   --primary: #3498db;
 
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --warning: #e67e22;
+  --info: var(--primary);
+
   --border: 1px solid #ccc;
 }
 html,
@@ -83,4 +88,34 @@ body {
 }
 .flex-1 {
   flex: 1;
+}
+.jc-end {
+  justify-content: flex-end;
+}
+.p-10 {
+  padding: 10;
+}
+
+.btn {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.05s ease-in;
+  font-weight: 600;
+  font-size: 14px;
+  color: inherit;
+  cursor: pointer;
+}
+.btn:active {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-success {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+
+.m-0 {
+  margin: 0;
 }
