@@ -25,6 +25,7 @@ export class AppComponent {
   inputAddNewList: any;
 
   newListName: string = '';
+  isAddingNewList = false;
 
   lists = [
     {
@@ -43,16 +44,6 @@ export class AppComponent {
     },
   ];
 
-  modalAddListVisible = false;
-
-  openModalAddNewList() {
-    this.modalAddListVisible = true;
-    setTimeout(() => {
-      console.log(this);
-      this.inputAddNewList.nativeElement.focus();
-    }, 100);
-  }
-
   addNewList() {
     this.lists.push({
       id: (Math.random() * 100) | 0,
@@ -61,8 +52,15 @@ export class AppComponent {
       items: [],
     });
 
-    this.modalAddListVisible = false;
     this.newListName = '';
+  }
+
+  activeNewList() {
+    this.isAddingNewList = true;
+
+    setTimeout(() => {
+      this.inputAddNewList.nativeElement.focus();
+    }, 50);
   }
 
   addItemToList(item: List) {
@@ -90,15 +88,24 @@ export class AppComponent {
 
   toogleEdit(item: ListItem) {
     if (!item.editable && !item.completed) {
-      const input: HTMLInputElement | null = document.querySelector(
-        `#list_item__${item.listId}__${item.id}`
-      );
-      input && input.focus();
+      setTimeout(() => {
+        const input: HTMLInputElement | null = document.querySelector(
+          `#list_item__${item.listId}__${item.id}`
+        );
+        input && input.focus();
+      }, 50);
       item.editable = !item.editable;
     }
   }
 
   blurEditableItem(item: ListItem) {
     item.editable = !item.editable;
+  }
+
+  keydownEnter(event: any) {
+    if (event.key === 'Enter') {
+      this.addNewList();
+      this.isAddingNewList = false;
+    }
   }
 }

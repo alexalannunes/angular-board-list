@@ -124,3 +124,18 @@ body {
 .m-0 {
   margin: 0;
 }
+
+.btn-text {
+  background: #e6f3fb;
+  border: none;
+  padding: 8px 10px;
+  width: 100%;
+  font-weight: 600;
+  color: inherit;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--primary);
+}

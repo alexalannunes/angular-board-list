@@ -2,7 +2,9 @@
 <div class="content">
   <div class="board">
     <div class="list border" *ngFor="let i of lists; let x = index">
-      <h3>{{ i.title }} {{ x }}</h3>
+      <div class="flex ai-center jc-between">
+        <h3>{{ i.title }}</h3>
+      </div>
       <div>
         <form (ngSubmit)="addItemToList(i)">
           <input
@@ -34,7 +36,7 @@
             </div>
             <input
               type="text"
-              [readonly]="!a.editable"
+              *ngIf="a.editable"
               [ngClass]="{
                 checked: a.completed,
                 'input-text': !a.editable,
@@ -43,8 +45,11 @@
               [value]="a.title"
               (blur)="blurEditableItem(a)"
               id="list_item__{{ i.id }}__{{ a.id }}"
-              (click)="toogleEdit(a)"
+              [(ngModel)]="a.title"
             />
+            <span (click)="toogleEdit(a)" *ngIf="!a.editable">{{
+              a.title
+            }}</span>
           </div>
         </div>
       </div>
@@ -58,102 +63,24 @@
     </div>
 
     <div class="list border">
-      <button (click)="openModalAddNewList()">+ adicionar</button>
-    </div>
-  </div>
-</div>
-
-<style>
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 8;
-    background: #fff1;
-    backdrop-filter: blur(3px);
-  }
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9;
-    background: transparent;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.2s ease-in-out;
-    transform: translateY(-30px);
-  }
-  .modal.open {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-  .modal-dialog {
-    width: 500px;
-    background: #fff;
-    border-radius: 10px;
-    margin: 100px auto;
-    box-shadow: 0px 11px 29px 5px rgba(0, 0, 0, 0.12);
-  }
-  .modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    border-bottom: 1px solid #f3f3f3;
-  }
-  .modal-body {
-    padding: 20px;
-  }
-  .modal-footer {
-    padding: 20px;
-    gap: 10px;
-    border-top: 1px solid #f3f3f3;
-  }
-  .modal-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
-</style>
-
-<div class="modal-backdrop" *ngIf="modalAddListVisible"></div>
-<div class="modal" [ngClass]="{ open: modalAddListVisible }">
-  <div class="modal-dialog">
-    <div class="modal-header">
-      <h4 class="m-0" style="font-weight: 500">Add new list</h4>
-      <span
-        class="modal-close material-icons"
-        (click)="modalAddListVisible = false"
-        >close</span
+      <button
+        class="btn-text"
+        *ngIf="!isAddingNewList"
+        (click)="activeNewList()"
       >
-    </div>
-    <div class="modal-body">
+        <span class="material-icons">add</span> Add new list
+      </button>
+
       <input
+        *ngIf="isAddingNewList"
         type="text"
         class="input"
         #inputAddNewList
         placeholder="List name"
+        (blur)="isAddingNewList = false"
+        (keydown)="keydownEnter($event)"
         [(ngModel)]="newListName"
       />
-    </div>
-
-    <div class="modal-footer flex ai-center jc-end">
-      <button class="btn btn-light" (click)="modalAddListVisible = false">
-        Cancel
-      </button>
-      <button
-        class="btn btn-success"
-        [disabled]="!newListName"
-        (click)="addNewList()"
-      >
-        Confirm
-      </button>
     </div>
   </div>
 </div>
