@@ -1,19 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-
-interface ListItem {
-  id: number;
-  title: string;
-  completed: boolean;
-  listId: number;
-  editable: boolean;
-}
-
-interface List {
-  id: number;
-  title: string;
-  newItem: string;
-  items: ListItem[];
-}
+import { List, ListItem, ListsService } from './lists.service';
 
 @Component({
   selector: 'app-root',
@@ -21,43 +7,24 @@ interface List {
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  constructor(private listsService: ListsService) {}
+
   @ViewChild('inputAddNewList')
   inputAddNewList: any;
 
   newListName: string = '';
   isAddingNewList = false;
 
-  lists = [
-    {
-      id: 1,
-      title: 'List',
-      newItem: '',
-      items: [
-        {
-          id: 13,
-          title: 'Lotem',
-          completed: false,
-          listId: 1,
-          editable: false,
-        },
-      ],
-    },
-  ];
+  lists = this.listsService.lists;
 
   addNewList() {
-    this.lists.push({
-      id: (Math.random() * 100) | 0,
-      title: this.newListName,
-      newItem: '',
-      items: [],
-    });
-
+    this.listsService.addNewList(this.newListName);
     this.newListName = '';
+    console.log(this.listsService.lists);
   }
 
   activeNewList() {
     this.isAddingNewList = true;
-
     setTimeout(() => {
       this.inputAddNewList.nativeElement.focus();
     }, 50);
@@ -65,14 +32,7 @@ export class AppComponent {
 
   addItemToList(item: List) {
     if (item.newItem) {
-      item.items.push({
-        id: (Math.random() * 1000) | 0,
-        title: item.newItem,
-        completed: false,
-        listId: item.id,
-        editable: false,
-      });
-
+      this.listsService.addItemToList(item.newItem, item.id);
       item.newItem = '';
     }
   }
@@ -82,8 +42,7 @@ export class AppComponent {
   }
 
   toggleItem(item: ListItem) {
-    item.completed = !item.completed;
-    item.editable = false;
+    this.listsService.toggleItem(item.id, item.listId);
   }
 
   toogleEdit(item: ListItem) {
@@ -107,5 +66,10 @@ export class AppComponent {
       this.addNewList();
       this.isAddingNewList = false;
     }
+  }
+
+  ao(a: any) {
+    console.log(a);
+    a.blur();
   }
 }

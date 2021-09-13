@@ -19,7 +19,7 @@
 
       <div class="list-container" role="menu">
         <div *ngFor="let a of i.items" class="zoomIn list-item" role="listitem">
-          <div class="flex ai-center flex-1">
+          <div class="flex ai-center flex-1" style="word-break: break-all">
             <div
               (click)="toggleItem(a)"
               class="icons-toggle-item--action m-r-10"
@@ -46,6 +46,8 @@
               (blur)="blurEditableItem(a)"
               id="list_item__{{ i.id }}__{{ a.id }}"
               [(ngModel)]="a.title"
+              #thisInput
+              (keydown.enter)="ao(thisInput)"
             />
             <span (click)="toogleEdit(a)" *ngIf="!a.editable">{{
               a.title
