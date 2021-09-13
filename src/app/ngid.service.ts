@@ -4,9 +4,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class NgidService {
-  init = 0;
+  init = btoa(Date.now().toString(16));
 
   next() {
-    return this.init++;
+    this.init = btoa(Date.now().toString(16));
+    return this.init;
   }
 }

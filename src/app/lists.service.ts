@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { NgidService } from './ngid.service';
 
 export interface ListItem {
-  id: number;
+  id: string;
   title: string;
   completed: boolean;
-  listId: number;
+  listId: string;
   editable: boolean;
 }
 
 export interface List {
-  id: number;
+  id: string;
   title: string;
   newItem: string;
   items: ListItem[];
@@ -23,7 +23,15 @@ export class ListsService {
   lists: List[] = [];
 
   constructor(private ngId: NgidService) {
-    console.log(ngId.next());
+    const exists = !!localStorage.getItem('items');
+
+    if (exists) {
+      this.lists = JSON.parse(localStorage.getItem('items') || '[]');
+    }
+  }
+
+  storage() {
+    localStorage.setItem('items', JSON.stringify(this.lists));
   }
 
   addNewList(title: string) {
@@ -34,26 +42,30 @@ export class ListsService {
       newItem: '',
       items: [],
     });
+    this.storage();
   }
 
-  addItemToList(title: string, listId: number) {
+  addItemToList(title: string, listId: string) {
     const id = this.ngId.next();
 
     const list: List | undefined = this.lists.find(
       (list: List) => list.id === listId
     );
 
-    list &&
+    if (list) {
       list.items.push({
         id,
-        title: title,
+        title: title.trim(),
         completed: false,
         listId,
         editable: false,
       });
+    }
+
+    this.storage();
   }
 
-  toggleItem(itemId: number, listId: number) {
+  toggleItem(itemId: string, listId: string) {
     const list: List | undefined = this.lists.find(
       (list: List) => list.id === listId
     );
@@ -66,5 +78,7 @@ export class ListsService {
       item.completed = !item.completed;
       item.editable = false;
     }
+
+    this.storage();
   }
 }

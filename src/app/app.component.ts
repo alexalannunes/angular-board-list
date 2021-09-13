@@ -20,7 +20,6 @@ export class AppComponent {
   addNewList() {
     this.listsService.addNewList(this.newListName);
     this.newListName = '';
-    console.log(this.listsService.lists);
   }
 
   activeNewList() {

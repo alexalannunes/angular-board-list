@@ -18,7 +18,12 @@
       </div>
 
       <div class="list-container" role="menu">
-        <div *ngFor="let a of i.items" class="zoomIn list-item" role="listitem">
+        <div
+          *ngFor="let a of i.items"
+          class="zoomIn list-item"
+          role="listitem"
+          [attr.data-id]="a.id"
+        >
           <div class="flex ai-center flex-1" style="word-break: break-all">
             <div
               (click)="toggleItem(a)"
