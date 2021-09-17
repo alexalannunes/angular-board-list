@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopBarComponent } from './top-bar/top-bar.component';
 
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   declarations: [AppComponent, TopBarComponent],
   imports: [
@@ -14,6 +16,7 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
